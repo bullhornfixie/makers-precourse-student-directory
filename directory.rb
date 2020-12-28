@@ -1,35 +1,35 @@
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+  puts "Please enter student name: "
+  puts "Then enter cohort: "
+  puts "To finish, enter quit then return"
 
   students = []                                     
- 
-  name = gets.chomp
-  puts "where was #{name} born"
-  origin = gets.chomp 
-                                   
-  while !name.empty? do 
-    students << {name: name, origin: origin, cohort: :november} 
-    puts "Now we have #{students.count} students"    
+  
+  data = {name: gets.chomp, cohort: gets.chomp.to_sym}
 
-    name = gets.chomp 
-    puts "where was #{name} born"
-    origin = gets.chomp                              
+  while !data.empty? do 
+    students << data 
+    puts "Now we have #{students.count} students"    
+    data = {name: gets.chomp, cohort: gets.chomp.to_sym}
+    
+    if data[:name] == "quit"
+      break
+    end
   end
   
   students                                          
 end 
 
-def print_header 
+def print_header
   puts "The students of Villains Academy"
   puts "-------------"
 end
 
 def print_cohort(students)
-  students.each { |student| puts "#{student[:name]}".ljust(15) + " #{student[:origin]}".ljust(15) + "(#{student[:cohort]} cohort)".center(15) }
+  students.each { |student| puts "#{student[:name]}".ljust(5) + "(#{student[:cohort]} cohort)".center(5) }
 end
 
-def print_footer(students) 
+def print_footer(students)
   puts "Overall, we have #{students.count} great students"
 end
 
