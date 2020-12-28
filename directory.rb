@@ -21,8 +21,8 @@ def print_header
 end
 
 def print_cohort(students)
-  filtered = students.select { |student| student if student[:name][0].include? "T" } 
-  # modified program to only print the students whose name begins with a "T"
+  filtered = students.select { |student| student if student[:name].length < 12 } 
+  # modified program to only print the students whose name is shorter than 12 characters
   filtered.each_with_index { |student, index| puts "#{index + 1} #{student[:name]} (#{student[:cohort]} cohort)" }
 end
 
