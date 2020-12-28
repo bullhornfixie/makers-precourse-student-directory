@@ -4,12 +4,17 @@ def input_students
 
   students = []                                     
  
-  name = gets.chomp                                
-
+  name = gets.chomp
+  puts "where was #{name} born"
+  origin = gets.chomp 
+                                   
   while !name.empty? do 
-    students << {name: name, cohort: :november} 
+    students << {name: name, origin: origin, cohort: :november} 
     puts "Now we have #{students.count} students"    
-    name = gets.chomp                                
+
+    name = gets.chomp 
+    puts "where was #{name} born"
+    origin = gets.chomp                              
   end
   
   students                                          
@@ -21,14 +26,7 @@ def print_header
 end
 
 def print_cohort(students)
-  students.count 
-  index = 0 
-  
-  until index == students.count
-    puts "#{students[index][:name]} (#{students[index][:cohort]} cohort)" 
-    index += 1
-  end
-  
+  students.each { |student| puts "#{student[:name]} #{student[:origin]} (#{student[:cohort]} cohort)" }
 end
 
 def print_footer(students) 
