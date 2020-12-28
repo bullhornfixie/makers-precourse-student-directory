@@ -26,7 +26,7 @@ def print_header
 end
 
 def print_cohort(students)
-  students.each { |student| puts "#{student[:name]} #{student[:origin]} (#{student[:cohort]} cohort)" }
+  students.each { |student| puts "#{student[:name]}".ljust(15) + " #{student[:origin]}".ljust(15) + "(#{student[:cohort]} cohort)".center(15) }
 end
 
 def print_footer(students) 
