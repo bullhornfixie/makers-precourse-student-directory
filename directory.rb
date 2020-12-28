@@ -21,9 +21,14 @@ def print_header
 end
 
 def print_cohort(students)
-  filtered = students.select { |student| student if student[:name].length < 12 } 
-  # modified program to only print the students whose name is shorter than 12 characters
-  filtered.each_with_index { |student, index| puts "#{index + 1} #{student[:name]} (#{student[:cohort]} cohort)" }
+  students.count 
+  index = 0 
+  
+  until index == students.count
+    puts "#{students[index][:name]} (#{students[index][:cohort]} cohort)" 
+    index += 1
+  end
+  
 end
 
 def print_footer(students) 
