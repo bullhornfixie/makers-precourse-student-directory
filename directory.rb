@@ -3,20 +3,16 @@ def input_students
   puts "To finish, just hit return twice"
 
   students = []                                     
-  # created empty array 
+ 
   name = gets.chomp                                
-  # gets the the first name
 
   while !name.empty? do 
-    students << {name: name, cohort: :november}
+    students << {name: name, cohort: :november} 
     puts "Now we have #{students.count} students"    
-    # confirms students input 
     name = gets.chomp                                
-    # get another name from user 
   end
   
   students                                          
-  # return the array of students 
 end 
 
 def print_header 
@@ -24,16 +20,17 @@ def print_header
   puts "-------------"
 end
 
-def print_cohort(list)
-  list.each_with_index { |student, index| puts "#{index + 1} #{student[:name]} (#{student[:cohort]} cohort)" }
+def print_cohort(students)
+  filtered = students.select { |student| student if student[:name][0].include? "T" } 
+  # modified program to only print the students whose name begins with a "T"
+  filtered.each_with_index { |student, index| puts "#{index + 1} #{student[:name]} (#{student[:cohort]} cohort)" }
 end
 
-def print_footer(names) 
-  puts "Overall, we have #{names.count} great students"
+def print_footer(students) 
+  puts "Overall, we have #{students.count} great students"
 end
 
 students = input_students                             
-# return input_students = students (students is a variable used outside this method)
 print_header 
 print_cohort(students)
 print_footer(students)
