@@ -1,20 +1,15 @@
 def input_students
-  puts "Please enter student name: "
-  puts "Then enter cohort: "
-  puts "To finish, enter quit then return"
+  puts "Please enter student name"
+  puts "To finish, hit enter twice"
 
   students = []                                     
   
-  data = {name: gets.chop, cohort: gets.chop.to_sym}
-
-  while !data.empty? do 
-    students << data 
+  name = gets.chop
+ 
+  while !name.empty? do 
+    students << {name: name, cohort: :november}
     puts students.count < 2 ? "Now we have #{students.count} student" : "Now we have #{students.count} students"
-    data = {name: gets.chop, cohort: gets.chop.to_sym}
-    
-    if data[:name] == "quit"
-      break
-    end
+    name = gets.chop
   end
   
   students                                          
@@ -26,13 +21,18 @@ def print_header
 end
 
 def print_cohort(students)
-  group1 = students.select { |student| student[:cohort] == :november }
-  group2 = students.select { |student| student[:cohort] == :october }
+  if students.count < 1
+    puts "empty list!"
+    # only print list if at least 1 student
+  else
+    group1 = students.select { |student| student[:cohort] == :november }
+    group2 = students.select { |student| student[:cohort] == :october }
 
-  align = lambda { |student| puts "#{student[:name]}".ljust(10) + "(#{student[:cohort]} cohort)".center(10) }
+    align = lambda { |student| puts "#{student[:name]}".ljust(10) + "(#{student[:cohort]} cohort)".center(10) }
 
-  group1.each(&align)
-  group2.each(&align)
+    group1.each(&align)
+    group2.each(&align)
+  end
 end
 
 def print_footer(students)
