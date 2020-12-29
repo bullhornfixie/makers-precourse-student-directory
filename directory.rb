@@ -9,7 +9,7 @@ def input_students
 
   while !data.empty? do 
     students << data 
-    puts "Now we have #{students.count} students"    
+    puts students.count < 2 ? "Now we have #{students.count} student" : "Now we have #{students.count} students"
     data = {name: gets.chomp, cohort: gets.chomp.to_sym}
     
     if data[:name] == "quit"
@@ -36,7 +36,8 @@ def print_cohort(students)
 end
 
 def print_footer(students)
-  puts "Overall, we have #{students.count} great students"
+  wording = "Overall, we have #{students.count} great student"
+  puts students.count < 2 ? wording : wording + "s"
 end
 
 students = input_students                             
