@@ -5,12 +5,12 @@ def input_students
 
   students = []                                     
   
-  data = {name: gets.chomp, cohort: gets.chomp.to_sym}
+  data = {name: gets.chop, cohort: gets.chop.to_sym}
 
   while !data.empty? do 
     students << data 
     puts students.count < 2 ? "Now we have #{students.count} student" : "Now we have #{students.count} students"
-    data = {name: gets.chomp, cohort: gets.chomp.to_sym}
+    data = {name: gets.chop, cohort: gets.chop.to_sym}
     
     if data[:name] == "quit"
       break
