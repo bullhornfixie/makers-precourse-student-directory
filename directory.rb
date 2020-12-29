@@ -26,7 +26,13 @@ def print_header
 end
 
 def print_cohort(students)
-  students.each { |student| puts "#{student[:name]}".ljust(5) + "(#{student[:cohort]} cohort)".center(5) }
+  group1 = students.select { |student| student[:cohort] == :november }
+  group2 = students.select { |student| student[:cohort] == :october }
+
+  align = lambda { |student| puts "#{student[:name]}".ljust(10) + "(#{student[:cohort]} cohort)".center(10) }
+
+  group1.each(&align)
+  group2.each(&align)
 end
 
 def print_footer(students)
