@@ -10,6 +10,7 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
+  puts "3. Save the list to students.csv"
   puts "9. Exit"
 end
 
@@ -19,6 +20,8 @@ def process(selection)
       input_students 
     when "2"
       show_students
+    when "3"
+      save_students
     when "9"
       exit 
     else
@@ -34,13 +37,10 @@ def input_students
        
   while !name_cohort.empty? do  
     name, cohort = name_cohort.split(", ")
-    # split name_cohort into 2 variables
     @students << {name: name.capitalize, cohort: cohort.to_sym.capitalize}
-    # feed these two variables into a hash which is pushed to an array 
+    2
     puts @students.count < 2 ? "Now we have #{@students.count} student" : "Now we have #{@students.count} students"
-    # tell me student count 
     name_cohort = gets.chomp
-    # ask for another student name, cohort 
   end                                       
 end
 
@@ -70,6 +70,17 @@ end
 def print_footer
   wording = "In this cohort, we have #{@cohort_size} great student"
   puts @cohort_size < 2 ? wording : wording + "s"
+end
+
+def save_students
+  file = File.open("students.csv", "w")
+ 
+  @students.each do |student| 
+    student_data = [student[:name]],[student[:cohort]] 
+    csv_line = student_data.join(",") 
+    file.puts csv_line 
+  end
+  file.close 
 end
 
 interactive_menu
