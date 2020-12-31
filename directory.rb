@@ -3,7 +3,7 @@
 def interactive_menu
   loop do 
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -36,14 +36,14 @@ def input_students
   puts "Please enter student name and then cohort seperated by comma e.g. jon, october"
   puts "To finish, hit enter twice"                               
         
-  name_cohort = gets.chomp
+  name_cohort = STDIN.gets.chomp
        
   while !name_cohort.empty? do  
     name, cohort = name_cohort.split(", ")
     @students << {name: name.capitalize, cohort: cohort.to_sym.capitalize}
     2
     puts @students.count < 2 ? "Now we have #{@students.count} student" : "Now we have #{@students.count} students"
-    name_cohort = gets.chomp
+    name_cohort = STDIN.gets.chomp
   end                                       
 end
 
@@ -63,7 +63,7 @@ def print_students_list
     puts "empty list!"
   else
     puts "Which cohort is required?"
-    input = gets.chomp
+    input = STDIN.gets.chomp
     grouping = @students.select { |student| student[:cohort] == input.to_sym.capitalize}
     @cohort_size = grouping.count
     grouping.each { |student| puts "#{student[:name]}".ljust(10) + "(#{student[:cohort]} cohort)".center(10) }
@@ -86,8 +86,8 @@ def save_students
   file.close 
 end
 
-def load_students
-  file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
     @students << {name: name, cohort: cohort.to_sym}
@@ -95,5 +95,18 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first # takes first argument passed via the command line
+  return if filename.nil? # exit method if no argument given 
+  if File.exists?(filename) # method used on File class
+    load_students(filename)
+      puts "Loaded #{@students.count} from #{filename}"
+  else # if it doesn't exist 
+    puts "Sorry, #{filename} doesn't exist."
+  end
+end
+
+try_load_students
 interactive_menu
+
 
