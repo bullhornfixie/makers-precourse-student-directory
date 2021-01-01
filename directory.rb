@@ -24,7 +24,7 @@ def process(selection)
     when "3"
       save_students
     when "4"
-      load_students
+      load_students_from_program
     when "9"
       exit 
     else
@@ -85,20 +85,21 @@ def save_students
   file.close 
 end
 
-def load_students(filename = "students.csv")
+def load_students_from_program(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
     student_entry(name, cohort)
+    puts "student loaded" 
   end
   file.close
 end
 
-def try_load_students
+def load_students_from_CMD
   filename = ARGV.first # takes first argument passed via the command line
   return if filename.nil? # exit method if no argument given 
   if File.exists?(filename) # method used on File class
-    load_students(filename)
+    load_students_from_program(filename) # filename passed to load_students method
       puts "Loaded #{@students.count} from #{filename}"
   else # if it doesn't exist 
     puts "Sorry, #{filename} doesn't exist."
@@ -106,11 +107,11 @@ def try_load_students
 end
 
 def student_entry(name, cohort)
-  @students << {name: name, cohort: cohort.to_sym}
-  puts "student entry added"
+  @students << {name: name.capitalize, cohort: cohort.to_sym.capitalize}
 end
-  
-try_load_students
+
+load_students_from_program
+load_students_from_CMD
 interactive_menu
 
 
