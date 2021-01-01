@@ -40,10 +40,9 @@ def input_students
        
   while !name_cohort.empty? do  
     name, cohort = name_cohort.split(", ")
-    @students << {name: name.capitalize, cohort: cohort.to_sym.capitalize}
-    2
+    student_entry(name, cohort)
     puts @students.count < 2 ? "Now we have #{@students.count} student" : "Now we have #{@students.count} students"
-    name_cohort = STDIN.gets.chomp
+    name_cohort = STDIN.gets.chomp # input next student from command line (Standard Input aka STDIN)
   end                                       
 end
 
@@ -81,7 +80,7 @@ def save_students
   @students.each do |student| 
     student_data = [student[:name]],[student[:cohort]] 
     csv_line = student_data.join(",") 
-    file.puts csv_line 
+    file.puts csv_line # re-directing standard output to file instead of terminal 
   end
   file.close 
 end
@@ -90,7 +89,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
+    student_entry(name, cohort)
   end
   file.close
 end
@@ -106,6 +105,11 @@ def try_load_students
   end
 end
 
+def student_entry(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+  puts "student entry added"
+end
+  
 try_load_students
 interactive_menu
 
