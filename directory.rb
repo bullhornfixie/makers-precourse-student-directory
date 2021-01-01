@@ -26,6 +26,7 @@ def process(selection)
     when "4"
       load_students_from_program
     when "9"
+      puts "You have selected option 9: Exit"
       exit 
     else
       puts "I dont know what you meant, try again"
@@ -33,6 +34,7 @@ def process(selection)
 end
 
 def input_students
+  puts "You have selected option 1: Input the students"
   puts "Please enter student name and then cohort seperated by comma e.g. jon, october"
   puts "To finish, hit enter twice"                               
         
@@ -47,6 +49,7 @@ def input_students
 end
 
 def show_students
+  puts "You have selected option 2: Show the students"
   print_header
   print_students_list
   print_footer
@@ -75,6 +78,7 @@ def print_footer
 end
 
 def save_students
+  puts "You have selected option 3: Save the list to students.csv"
   file = File.open("students.csv", "w")
  
   @students.each do |student| 
@@ -86,6 +90,7 @@ def save_students
 end
 
 def load_students_from_program(filename = "students.csv")
+  puts "You have selected option 4: Load the list from students.csv"
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
