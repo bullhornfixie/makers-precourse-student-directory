@@ -92,17 +92,14 @@ def save_students
 end
 
 def load_students_from_program
-  puts "You have selected option 4: Load the list from students.csv"
   puts "What file what you like to load? e.g. students.csv"
+
   file_to_load = STDIN.gets.chomp
-  working_file = File.open(file_to_load, "r")
-  
-  working_file.readlines.each do |line|
-  name, cohort = line.chomp.split(",")
-    student_entry(name, cohort)
-    puts "student loaded" 
+  working_file = File.open(file_to_load, "r") do |f|
+    f.readlines.each { |line| name, cohort = line.chomp.split(",")
+    student_entry(name, cohort) } # feeding to method
+    puts "#{file_to_load} loaded"
   end
-  working_file.close
 end
 
 def load_students_from_CMD
