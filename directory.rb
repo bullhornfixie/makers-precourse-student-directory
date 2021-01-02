@@ -10,8 +10,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list to a file"
+  puts "4. Load the list from a file"
   puts "9. Exit"
 end
 
@@ -76,28 +76,33 @@ def print_footer
   wording = "In this cohort, we have #{@cohort_size} great student"
   puts @cohort_size < 2 ? wording : wording + "s"
 end
-
+9
 def save_students
-  puts "You have selected option 3: Save the list to students.csv"
-  file = File.open("students.csv", "w")
+  puts "You have selected option 3: Save the list to a file"
+  puts "What file would you like to save to? e.g. students.csv"
+  file_to_open = STDIN.gets.chomp
+  working_file = File.open(file_to_open, "w")
  
   @students.each do |student| 
     student_data = [student[:name]],[student[:cohort]] 
     csv_line = student_data.join(",") 
-    file.puts csv_line # re-directing standard output to file instead of terminal 
+    working_file.puts csv_line # re-directing standard output to file instead of terminal 
   end
-  file.close 
+  working_file.close 
 end
 
-def load_students_from_program(filename = "students.csv")
+def load_students_from_program
   puts "You have selected option 4: Load the list from students.csv"
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
+  puts "What file what you like to load? e.g. students.csv"
+  file_to_load = STDIN.gets.chomp
+  working_file = File.open(file_to_load, "r")
+  
+  working_file.readlines.each do |line|
   name, cohort = line.chomp.split(",")
     student_entry(name, cohort)
     puts "student loaded" 
   end
-  file.close
+  working_file.close
 end
 
 def load_students_from_CMD
